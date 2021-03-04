@@ -11,9 +11,24 @@ const app = express();
 
 app.use(staticMiddleware);
 
+// loading prospects data
 app.get('/api/prospects', (req, res) => {
   const sql = `
     select * from prospects
+  `;
+
+  db.query(sql)
+    .then(result => {
+      // console.log('DB response:',result.rows);
+
+      res.json(result.rows);
+    });
+});
+
+// loading farms data
+app.get('/api/farms', (req, res) => {
+  const sql = `
+    select * from farms
   `;
 
   db.query(sql)
