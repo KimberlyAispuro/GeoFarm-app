@@ -18,7 +18,7 @@ export default class Farms extends React.Component {
   }
 
   componentDidMount() {
-    fetch('/api/prospects')
+    fetch('/api/farms')
       .then(res => res.json())
       .then(farms => {
         this.setState({ farms: farms });
@@ -38,7 +38,6 @@ export default class Farms extends React.Component {
     return (
 
             <div className='container'>
-              <h1 className='text-left' style={{ paddingBottom: '20px' }}>Farms</h1>
 
                 <div>
                     {

@@ -1,3 +1,43 @@
 body {
   background-color: #dde2ff;
 }
+
+.needs-attention {
+  font-size: smaller;
+  text-align: center;
+  border-radius: 100px;
+  color: white;
+  background-color: #f12b2c !important;
+  padding: 4px 16px !important;
+
+  /* margin:0px !important; */
+  margin-bottom: 6px !important;
+}
+
+.good-status {
+  text-align: center;
+  border-radius: 100px;
+  color: white;
+  background-color: #43c362;
+  margin: 1px;
+  margin-top: 7px;
+}
+
+.pipeline-edit-icon {
+  color: #606161;
+}
+
+.pipeline-delete-icon {
+  color: #ff6760;
+}
+
+.icon-td {
+  text-align: center;
+  padding: 4px;
+  margin: 4px;
+  padding-top: 4px;
+  margin-top: 5px;
+  margin-left: 10px;
+  padding-left: 5px;
+  font-size: 28px;
+}
