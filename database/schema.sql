@@ -30,8 +30,8 @@ CREATE TABLE "prospects" (
 	"neighborhoodComplaints" TEXT NOT NULL,
 	"notes" TEXT NOT NULL,
 	"prospectStatus" VARCHAR(255) NOT NULL,
-	"farmId" integer NOT NULL,
-	"viewPipelineId" integer NOT NULL,
+	"farmId" integer DEFAULT NULL,
+	"viewPipelineId" integer DEFAULT NULL,
 	CONSTRAINT "prospects_pk" PRIMARY KEY ("prospectId")
 ) WITH (
   OIDS=FALSE
