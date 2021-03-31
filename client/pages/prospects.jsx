@@ -1,6 +1,7 @@
 import React from 'react';
 import Modal from 'react-modal';
 import Farms from '../components/farm';
+import AddProspect from '../components/addProspect';
 
 export default class Prospects extends React.Component {
   constructor(props) {
@@ -10,15 +11,15 @@ export default class Prospects extends React.Component {
       prospects: null,
 
       modalIsOpen: false,
-      address:'',
-      name:'',
-      phoneNumber:'',
-      email:'',
-      interestInSelling:'',
-      neighborhoodComplaints:'',
-      notes:'',
-      prospectStatus:'',
-      prospectId:0
+      address: '',
+      name: '',
+      phoneNumber: '',
+      email: '',
+      interestInSelling: '',
+      neighborhoodComplaints: '',
+      notes: '',
+      prospectStatus: '',
+      prospectId: 0
     };
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
@@ -26,9 +27,9 @@ export default class Prospects extends React.Component {
     this.handleEdit = this.handleEdit.bind(this);
   }
 
-  openModal(prospect){
+  openModal(prospect) {
     this.setState({
-      modalIsOpen:true,
+      modalIsOpen: true,
       address: prospect.address,
       name: prospect.name,
       phoneNumber: prospect.phoneNumber,
@@ -41,23 +42,23 @@ export default class Prospects extends React.Component {
     });
   }
 
-  closeModal(){
+  closeModal() {
     this.setState({
-      modalIsOpen:false
+      modalIsOpen: false
     });
   }
 
-  handleChange(event){
+  handleChange(event) {
     this.setState({
-        [event.target.name]: event.target.value
+      [event.target.name]: event.target.value
     });
   }
 
-  handleEdit(event){
+  handleEdit(event) {
     event.preventDefault();
     // console.log("handleChange");
 
-    let data = {
+    const data = {
       address: this.state.address,
       name: this.state.name,
       phoneNumber: this.state.phoneNumber,
@@ -67,43 +68,51 @@ export default class Prospects extends React.Component {
       notes: this.state.notes,
       prospectStatus: this.state.prospectStatus,
       prospectId: this.state.prospectId
-    }
+    };
     // console.log(data.prospectId);
 
-    fetch(`/api/prospects/${data.prospectId}`,{
-      method:'PUT',
-      headers:{"Content-Type": "application/json"},
-      body:JSON.stringify(data),
-  })
+    fetch(`/api/prospects/${data.prospectId}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    })
       .then(res => res.json())
       .then(data => {
-          console.log(data);
+        // console.log(data);
       })
       .catch(err => console.error(err));
 
-      this.closeModal();
+    this.closeModal();
+  }
 
+  deleteProspect(prospect) {
+    const deleteData = {
+      prospectId: prospect.prospectId
+    };
+    fetch(`/api/prospects/${deleteData.prospectId}`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(deleteData)
+    })
+      .then(res => res.json())
+      .then(deleteData => {
+        // console.log("prospect has been deleted");
+        // console.log(deleteData);
+      })
+      .catch(err => console.error(err));
   }
 
   componentDidMount() {
-    fetch('/api/prospects',{
-      method:'GET',
-  })
+    fetch('/api/prospects', {
+      method: 'GET'
+    })
       .then(res => res.json())
       .then(prospects => {
         this.setState({ prospects: prospects });
         // console.log('Prospects Data:',prospects);
       })
       .catch(err => console.error(err));
-}
-
-  //   fetch('/api/prospects')
-  //     .then(res => res.json())
-  //     .then(prospects => {
-  //       this.setState({ prospects: prospects });
-  //       // console.log('Prospects Data:',prospects);
-  //     });
-  // }
+  }
 
   render() {
     const { prospects } = this.state;
@@ -137,7 +146,7 @@ export default class Prospects extends React.Component {
                     </tr>
                   </thead>
                   <tbody>
-                        {this.state.prospects.map(prospect => 
+                        {this.state.prospects.map(prospect =>
                           <tr key={prospect.prospectId} className="table table-sm" style={styles.prospectRow}>
                             <td>{prospect.address}</td>
                             <td>{prospect.name}</td>
@@ -149,11 +158,11 @@ export default class Prospects extends React.Component {
                             <td>
                               <div className='good-status'><div className={prospect.prospectStatus === 'Needs attention' ? 'needs-attention' : ''}>{prospect.prospectStatus}</div></div>
                             </td>
-                            <td><a onClick={()=> this.openModal(prospect)}><span className="icon-td material-icons pipeline-edit-icon">edit</span></a></td>
-                            <td><span className="icon-td material-icons pipeline-delete-icon">delete_outlined</span></td>
+                            <td><a onClick={() => this.openModal(prospect)}><span className="icon-td material-icons pipeline-edit-icon">edit</span></a></td>
+                            <td><a onClick={() => this.deleteProspect(prospect)}><span className="icon-td material-icons pipeline-delete-icon">delete_outlined</span></a></td>
                           </tr>
                         )}
-                        <Modal 
+                        <Modal
                           isOpen={this.state.modalIsOpen}
                           onRequestClose={this.closeModal}
                           ariaHideApp={false}
@@ -176,18 +185,17 @@ export default class Prospects extends React.Component {
                             <input type="text" onChange={this.handleChange} className="form-control" name='notes' value={this.state.notes}/>
                             <label>Prospect Status</label>
                             <input type="text" onChange={this.handleChange} className="form-control" name='prospectStatus' value={this.state.prospectStatus}/>
-                            <input type='submit' value='Submit' onSubmit={()=> this.closeModal()} />
+                            <input type='submit' value='Submit' onSubmit={() => this.closeModal()} />
                           </form>
                         </Modal>
                   </tbody>
                 </table>
                 </div>
-                {/* <AddProspect /> */}
+                <AddProspect />
             </div>
 
     );
   }
-
 }
 
 const styles = ({
