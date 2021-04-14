@@ -8,6 +8,10 @@ const db = new Pool({
   connectionString: process.env.DATABASE_URL
 });
 
+// process.on('uncaughtException', function (err) {
+//   console.log(err);
+// }); 
+
 const app = express();
 
 app.use(staticMiddleware);
@@ -22,7 +26,6 @@ app.get('/api/prospects', (req, res) => {
   db.query(sql)
     .then(result => {
       // console.log('DB response:',result.rows);
-
       res.json(result.rows);
     });
 });

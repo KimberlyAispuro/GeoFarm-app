@@ -1,7 +1,8 @@
 body {
-  background-color: #dde2ff;
+  background-color: #F7F8FC;
 }
 
+/* pipeline */
 .needs-attention {
   font-size: smaller;
   text-align: center;
@@ -9,7 +10,6 @@ body {
   color: white;
   background-color: #f12b2c !important;
   padding: 4px 16px !important;
-
   /* margin:0px !important; */
   margin-bottom: 6px !important;
 }
@@ -40,4 +40,70 @@ body {
   margin-left: 10px;
   padding-left: 5px;
   font-size: 28px;
+}
+
+/* .pipeline-header-container{
+  display: inline-block;
+} */
+
+/* farms */
+.farms-header{
+  display: inline-block;
+  margin-right:10px;
+  vertical-align: middle;
+}
+
+.farm-box{
+  display: inline-block;
+  margin-top:3%;
+  padding-top:2%;
+  margin-right: 5%;
+}
+
+.map-img{
+  /* background-image: url(../public/images/map.png); */
+  height:225px; 
+  width:300px;
+  background: linear-gradient(180deg, rgba(185, 186, 193, 0.04) 0%,
+            rgba(203, 203, 203, 0) 0.01%,
+            rgba(149, 152, 167, 0.136) 99.99%,
+            rgba(23, 23, 23, 0.472) 100%), 
+            url(./images/map.png);
+  mix-blend-mode: normal;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 28px;
+  background-size:150%;
+  background-position:center;
+  background: cover;
+}
+
+.farm-name{
+  text-align: center;
+  padding:1%;
+  margin-top:3%;
+}
+
+/*Add Prospect*/
+.add-container{
+  font-weight: bolder;
+  font-size: x-large;
+  color:#606161;
+  margin-top:2%;
+  padding-right:88%;
+  padding-top:5%;
+  border-radius: 12px;
+  background-color: white;
+}
+
+.add-button-text{
+  font-size: x-large;
+  align-items: right;
+  position: absolute;
+  margin-left: 3%;
+}
+
+.add-button{
+  font-size: 40px;
+  /* vertical-align: middle; */
+  
 }
