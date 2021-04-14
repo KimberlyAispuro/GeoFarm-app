@@ -3,6 +3,7 @@ import Modal from 'react-modal';
 import Farms from '../components/farm';
 import AddProspect from '../components/addProspect';
 
+
 export default class Prospects extends React.Component {
   constructor(props) {
     super(props);
@@ -46,6 +47,7 @@ export default class Prospects extends React.Component {
     this.setState({
       modalIsOpen: false
     });
+    window.location.reload();
   }
 
   handleChange(event) {
@@ -100,6 +102,7 @@ export default class Prospects extends React.Component {
         // console.log(deleteData);
       })
       .catch(err => console.error(err));
+      window.location.reload();
   }
 
   componentDidMount() {
@@ -129,7 +132,10 @@ export default class Prospects extends React.Component {
               <h1 className='text-left' style={{ paddingBottom: '20px' }}>Prospects</h1>
 
               <div className='container' style={styles.tableContainer}>
-                <h3 style={{ paddingBottom: '10px', marginBottom: '10px', paddingTop: '10px' }}><Farms/></h3>
+                <div className='pipeline-header-container'>
+                  <h3 style={{ paddingBottom: '10px', marginBottom: '10px', paddingTop: '10px' }}><Farms/></h3>
+                </div>
+
                 <table className="table table-sm">
                   <thead className="thead-dark">
                     <tr>
@@ -162,6 +168,7 @@ export default class Prospects extends React.Component {
                             <td><a onClick={() => this.deleteProspect(prospect)}><span className="icon-td material-icons pipeline-delete-icon">delete_outlined</span></a></td>
                           </tr>
                         )}
+                        <tr><AddProspect /></tr>
                         <Modal
                           isOpen={this.state.modalIsOpen}
                           onRequestClose={this.closeModal}
@@ -191,7 +198,6 @@ export default class Prospects extends React.Component {
                   </tbody>
                 </table>
                 </div>
-                <AddProspect />
             </div>
 
     );

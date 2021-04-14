@@ -1,10 +1,14 @@
 import React from 'react';
+import Modal from 'react-modal';
 
 export default class AddProspect extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      
+
+      modalIsOpen: false,
       address: '',
       name: '',
       phoneNumber: '',
@@ -14,9 +18,32 @@ export default class AddProspect extends React.Component {
       notes: '',
       prospectStatus: ''
     };
+    this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
 
+  }
+
+  openModal() {
+    this.setState({
+      modalIsOpen: true,
+      address: '',
+      name: '',
+      phoneNumber: '',
+      email: '',
+      interestInSelling: '',
+      neighborhoodComplaints: '',
+      notes: '',
+      prospectStatus: ''
+    });
+  }
+
+  closeModal() {
+    this.setState({
+      modalIsOpen: false
+    });
+    window.location.reload();
   }
 
   handleChange(event) {
@@ -27,6 +54,9 @@ export default class AddProspect extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    this.setState({
+      modalIsOpen: false
+    });
     // console.log("handleSubmit");
 
     const newProspect = {
@@ -71,6 +101,19 @@ export default class AddProspect extends React.Component {
   render() {
     return (
         <div>
+          <div>
+            <button type='button' className='btn btn-outline-primary btn-sm' onClick={() => this.openModal()} style={styles.addButton}>
+              <span className="material-icons-outlined" style={styles.addBtnIcon}>add</span>
+              <span style={styles.addBtnText}>Add Prospect</span>
+            </button>
+          </div>
+            <Modal
+                isOpen={this.state.modalIsOpen}
+                onRequestClose={this.closeModal}
+                ariaHideApp={false}
+                contentLabel='Selected Option'>
+
+                          
             <form onSubmit={this.handleSubmit} method='POST' >
                 <label>Address</label>
                 <input type="text" onChange={this.handleChange} className="form-control" name='address' value={this.state.address}/>
@@ -88,10 +131,44 @@ export default class AddProspect extends React.Component {
                 <input type="text" onChange={this.handleChange} className="form-control" name='notes' value={this.state.notes}/>
                 <label>Prospect Status</label>
                 <input type="text" onChange={this.handleChange} className="form-control" name='prospectStatus' value={this.state.prospectStatus}/>
+                {/* <button onClick={this.handleSubmit}>Submit</button> */}
+                <input type='submit' value='Submit' onSubmit={() => this.closeModal()} />
             </form>
-            <button onClick={this.handleSubmit}>Submit</button>
+            </Modal>
         </div>
     );
 
   }
 }
+const styles = ({
+  addButton: {
+    position:'absolute',
+    borderWidth:'3px',
+    borderRadius:'8px',
+    marginTop:'10px',
+    fontWeight:'500'
+    
+  },
+  addBtnText: {
+    
+    verticalAlign:'middle',
+    paddingRight:'35px',
+    fontSize:'17px',
+    marginTop:'50px',
+    
+    // position:'relative',
+    // verticalAlign:'middle',
+    // // paddingTop:'2px',
+    // // marginTop:'2px',
+    // // fontSize:'17px',
+    // marginLeft:'5%'
+    // // marginBottom:'20px',
+    // // paddingBottom:'20px'
+  },
+  addBtnIcon: {
+    marginRight:'10px',
+    marginLeft:'15px',
+    verticalAlign:'middle',
+    fontWeight:'bold',
+  }
+});
