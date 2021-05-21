@@ -169,6 +169,7 @@ export default class Prospects extends React.Component {
                           </tr>
                         )}
                         <tr><AddProspect /></tr>
+                        
                         <Modal
                           isOpen={this.state.modalIsOpen}
                           onRequestClose={this.closeModal}

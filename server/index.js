@@ -167,6 +167,49 @@ app.delete('/api/prospects/:prospectId', (req, res, next) => {
     });
 });
 
+
+// post login
+app.post('/api/login', (req, res, next) => {
+  // console.log(req.body);
+
+  const sql = `
+      select "email","password"
+        from "users"
+        where "email" = ($1) and "password" = ($2)
+`;
+  const { email,password } = req.body;
+  const values = [email,password];
+
+  // console.log(values);
+
+  if (!email || !password) {
+    res.status(400).json({
+      error: 'Email and password are required to continue. '
+    });
+    return;
+  }
+
+  db.query(sql, values)
+    .then(result => {
+      const user = result.rows;
+      if(!user.length){
+        res.status(404).json({
+          error:"Incorrect user and/or password."
+        });
+      } else {
+        res.status(200).json({
+          message: "You are logged in!"
+        });
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({
+        error: 'An unexpected error ocurred.'
+      });
+    });
+});
+
 app.listen(process.env.PORT, () => {
   // eslint-disable-next-line no-console
   console.log(`express server listening on port ${process.env.PORT}`);

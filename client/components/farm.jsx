@@ -4,7 +4,6 @@ function Farm({ farm }) {
   const { farmName } = farm;
   return (
           <div>{farmName}</div>
-
   );
 }
 
