@@ -107,3 +107,14 @@ body {
   /* vertical-align: middle; */
   
 }
+/*Login Page*/
+.login-img{
+  background: url(../images/loginlogo.png);
+  background-size:100%;
+  background-position:center;
+  text-align: center;
+  display:block;
+  margin:auto;
+  margin-right: 63%;
+  
+}

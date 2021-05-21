@@ -6,8 +6,6 @@ export default class AddProspect extends React.Component {
     super(props);
 
     this.state = {
-      
-
       modalIsOpen: false,
       address: '',
       name: '',
